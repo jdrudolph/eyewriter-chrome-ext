@@ -12,6 +12,11 @@
 			</a>
 		</td>
 		<td>
+			<a id="anchorRecMenu" class="ew-ext-internals"> 
+				<img class="ewExtImg ew-mnu-btn" id="btn_rec" extSrc="/images/play.png"/>
+			</a>
+		</td>
+		<td>
 			<a id="anchorScrollDown" class="ew-ext-internals">
 				<img id="btn_scr_down" class="ewExtImg ew-mnu-btn" extSrc="/images/arrow_down.png"/>
 			</a>
@@ -50,6 +55,10 @@
 				<table id="communication_table" class="ew_mnu_container">			
 				</table>
 		</td>
+		<td id="mnu_rec" style="display: none;" class="ew_mnu">
+				<table id="recording_table" class="ew_mnu_container">			
+				</table>
+		</td>
 		<td id="mnu_fav" style="display: none;" class="ew_mnu">
 				<table id="favorites_table" class="ew_mnu_container">			
 				</table>
@@ -64,24 +73,66 @@
 
 	function setListeners() 
 	{
-		document.getElementById("btn_fav").onmouseover = function(){myMouseOver(this, show_menue, 'mnu_fav'); };
-		document.getElementById("btn_fav").onmouseout = function() { myMouseOut(this); };
-		document.getElementById("btn_comm").onmouseover = function(){myMouseOver(this, show_menue, 'mnu_comm');};
-		document.getElementById("btn_comm").onmouseout = function(){myMouseOut(this); };
-		document.getElementById("btn_back").onmouseover =	function() {myMouseOver(this, function () {window.history.back();}); };
-		document.getElementById("btn_back").onmouseout = function(){myMouseOut(this); };
-	    document.getElementById("btn_forward").onmouseover = function() {	myMouseOver(this, function () {window.history.forward(); }); };
-		document.getElementById("btn_forward").onmouseout = function(){myMouseOut(this); };
-	    document.getElementById("btn_refresh").onmouseover = function() {	myMouseOver(this, function () {location.reload(); }); };
-		document.getElementById("btn_refresh").onmouseout = function(){myMouseOut(this); };
-	    document.getElementById("btn_scr_down").onmouseover = function() { myMouseOver(this, startScroll, 10); };
-		document.getElementById("btn_scr_down").onmouseout = function(){ stopScroll(this); };
-	    document.getElementById("btn_scr_up").onmouseover =	function() { myMouseOver(this, startScroll, -10); };
-		document.getElementById("btn_scr_up").onmouseout = function(){ stopScroll(this); };
-		document.getElementById("input_url").onmouseover = function () {myMouseOver(this, setFocus, this);};
-		document.getElementById("input_url").onmouseout = function () {myMouseOut(this);};
-		document.getElementById("btn_load_url").onmouseover = function() { myMouseOver(this, loadURL, document.getElementById("input_url").value) };
-		document.getElementById("btn_load_url").onmouseout = function(){ myMouseOut(this); };
+		document.getElementById("btn_fav").onmouseover = function() {
+			myMouseOver(this, show_menue, 'mnu_fav');
+	       	};
+		document.getElementById("btn_fav").onmouseout = function() {
+		       	myMouseOut(this);
+	       	};
+		document.getElementById("btn_comm").onmouseover = function() {
+			myMouseOver(this, show_menue, 'mnu_comm');
+		};
+		document.getElementById("btn_comm").onmouseout = function() {
+			myMouseOut(this);
+		};
+		document.getElementById("btn_rec").onmouseover = function() {
+			myMouseOver(this, show_menue, 'mnu_rec');
+		};
+		document.getElementById("btn_rec").onmouseout = function() {
+			myMouseOut(this);
+		};
+		document.getElementById("btn_back").onmouseover = function() {
+			myMouseOver(this, function () {window.history.back();});
+	       	};
+		document.getElementById("btn_back").onmouseout = function() {
+			myMouseOut(this);
+	       	};
+		document.getElementById("btn_forward").onmouseover = function() {
+			myMouseOver(this, function () {window.history.forward(); });
+	       	};
+		document.getElementById("btn_forward").onmouseout = function() {
+			myMouseOut(this);
+	       	};
+		document.getElementById("btn_refresh").onmouseover = function() {
+			myMouseOver(this, function () {location.reload(); });
+	       	};
+		document.getElementById("btn_refresh").onmouseout = function() {
+			myMouseOut(this);
+		};
+		document.getElementById("btn_scr_down").onmouseover = function() {
+		       	myMouseOver(this, startScroll, 10);
+		};
+		document.getElementById("btn_scr_down").onmouseout = function() {
+		       	stopScroll(this);
+		};
+		document.getElementById("btn_scr_up").onmouseover = function() {
+		       	myMouseOver(this, startScroll, -10);
+		};
+		document.getElementById("btn_scr_up").onmouseout = function() {
+			stopScroll(this);
+		};
+		document.getElementById("input_url").onmouseover = function () {
+			myMouseOver(this, setFocus, this);
+		};
+		document.getElementById("input_url").onmouseout = function () {
+			myMouseOut(this);
+		};
+		document.getElementById("btn_load_url").onmouseover = function() {
+		       	myMouseOver(this, loadURL, document.getElementById("input_url").value)
+		};
+		document.getElementById("btn_load_url").onmouseout = function() {
+		       	myMouseOut(this);
+	       	};
 	}
 	
 	

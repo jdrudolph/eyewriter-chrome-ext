@@ -97,6 +97,7 @@ if (!isAlreadyInjected) {
 	
 	communicationTableConstructor();
 	favoritesTableConstructor();
+	recordsTableConstructor();
 
 //FUNCTIONS
 function buttonClick(elm){
@@ -247,103 +248,115 @@ function loadScript(url, callback){
 }
 		
 
-	function favoritesTableConstructor() {
-		var numOfCols=4;
-		chrome.storage.local.get("fav_value_arr",
-			function (result)
-			{
-				console.log ("Loaded fav_value_arr");
-				/* Create Table of Communications */
-				var favTable = document.getElementById("favorites_table");
-				favTable.innerHTML=""; //Clear
-				var newTr=document.createElement("TR");
-				var newInputText = document.createElement("INPUT");
-				var i=0;
-				for (var val in result.fav_value_arr) {
+function recordingsTableConstructor() {
+	chrome.storage.local.get("rec_value_arr", function (result) {
+	       	console.log("recordings table construction")
+		var recTable = document.getElementById("recordings_table");
+	});
+}
 
-					var newTd=document.createElement("TD");
-					var newP=document.createElement("P");
-					if (val.length>15)
-						var txt = val.substring(1,12) + "...";
-					else
-						var txt = val;
-					var newTxt=document.createTextNode(txt);
-					var newIMG=document.createElement("IMG");
-					
-					newIMG.src= "http://" + result.fav_value_arr[val].url.split("/")[2] + "/favicon.ico";
-					
-					newP.appendChild(newIMG);
-					newP.appendChild(document.createElement("BR"));
-					newP.appendChild(newTxt);
-							
-					newTd.setAttribute("ewLink", result.fav_value_arr[val].url); //We use the Set/Get Attribute because using vars directly has errors
-					newTd.onmouseover=function(){
-						myMouseOver(this, navigate, this.getAttribute("ewLink"));
-					};
-					newTd.onmouseout=function(){myMouseOut(this)};
-										
-					newTd.appendChild(newP);
-					newTr.appendChild(newTd);
-					
-					if ((i+1) % numOfCols == 0) {
-						console.log(i % numOfCols);
-						favTable.appendChild(newTr);
-						newTr=document.createElement("TR");
-					}else{
-						favTable.appendChild(newTr);
-					}
-					
-					i++;
-				}
-				
-				// Fill the rest of the table with empty TD's - so it'll look good :)
-				for (var j=i % numOfCols; j<numOfCols; j++) {
-					newTr.appendChild(document.createElement("TD"));
-				}
-				favTable.appendChild(newTr);
-			
-				
-				// Create the commands of the communication menu - Buttons
-				newTr=document.createElement("TR");
-				newTd=document.createElement("TD");
-				var newBtnAdd = document.createElement("IMG");
-				var newBtnClose= document.createElement("IMG");
-				
-				newBtnAdd.src=chrome.extension.getURL("/images/add_to_fav.png");
-				newBtnAdd.style.width = '100px';
-				newBtnAdd.onmouseover = function(){myMouseOver(this, add_to_favorites); };
-				newBtnAdd.onmouseout = function() { myMouseOut(this); };
-				
-				newBtnClose.src=chrome.extension.getURL("/images/close_fav.png");
-				newBtnClose.style.width = '100px';
-				newBtnClose.style.marginLeft = '100px';
-				//newBtnClose.value="Close";
-				//newBtnClose.className="ew-btn";
-				newBtnClose.onmouseover = function(){myMouseOver(this, hide_menue); };
-				newBtnClose.onmouseout = function() { myMouseOut(this); };
-				
-				newTd.colSpan=numOfCols;
-				newTd.appendChild(newBtnAdd);
-				newTd.appendChild(newBtnClose);
-				newTr.appendChild(newTd);
-				favTable.appendChild(newTr);
-				
-			});
-	}
+function add_to_recordings() {
+	chrome.storage.local.get("rec_value_arr", function (result) {
+		console.log("add_to_recordings")
+		});
+}
+function favoritesTableConstructor() {
+	var numOfCols=4;
+	chrome.storage.local.get("fav_value_arr",
+		function (result)
+		{
+			console.log ("Loaded fav_value_arr");
+			/* Create Table of Communications */
+			var favTable = document.getElementById("favorites_table");
+			favTable.innerHTML=""; //Clear
+			var newTr=document.createElement("TR");
+			var newInputText = document.createElement("INPUT");
+			var i=0;
+			for (var val in result.fav_value_arr) {
 
-	function add_to_favorites() {
-		chrome.storage.local.get("fav_value_arr", function (result){
-				if (result.fav_value_arr)
-					var newFavs = result;
+				var newTd=document.createElement("TD");
+				var newP=document.createElement("P");
+				if (val.length>15)
+					var txt = val.substring(1,12) + "...";
 				else
-					var newFavs = {fav_value_arr : {}};
+					var txt = val;
+				var newTxt=document.createTextNode(txt);
+				var newIMG=document.createElement("IMG");
 				
-				newFavs.fav_value_arr[document.title]={url:window.location.href};
-				chrome.storage.local.set({'fav_value_arr': newFavs.fav_value_arr});
-				console.log ("Comm Added");
-				favoritesTableConstructor();//Rebuild
-			});
-	}
+				newIMG.src= "http://" + result.fav_value_arr[val].url.split("/")[2] + "/favicon.ico";
+				
+				newP.appendChild(newIMG);
+				newP.appendChild(document.createElement("BR"));
+				newP.appendChild(newTxt);
+						
+				newTd.setAttribute("ewLink", result.fav_value_arr[val].url); //We use the Set/Get Attribute because using vars directly has errors
+				newTd.onmouseover=function(){
+					myMouseOver(this, navigate, this.getAttribute("ewLink"));
+				};
+				newTd.onmouseout=function(){myMouseOut(this)};
+									
+				newTd.appendChild(newP);
+				newTr.appendChild(newTd);
+				
+				if ((i+1) % numOfCols == 0) {
+					console.log(i % numOfCols);
+					favTable.appendChild(newTr);
+					newTr=document.createElement("TR");
+				}else{
+					favTable.appendChild(newTr);
+				}
+				
+				i++;
+			}
+			
+			// Fill the rest of the table with empty TD's - so it'll look good :)
+			for (var j=i % numOfCols; j<numOfCols; j++) {
+				newTr.appendChild(document.createElement("TD"));
+			}
+			favTable.appendChild(newTr);
+		
+			
+			// Create the commands of the communication menu - Buttons
+			newTr=document.createElement("TR");
+			newTd=document.createElement("TD");
+			var newBtnAdd = document.createElement("IMG");
+			var newBtnClose= document.createElement("IMG");
+			
+			newBtnAdd.src=chrome.extension.getURL("/images/add_to_fav.png");
+			newBtnAdd.style.width = '100px';
+			newBtnAdd.onmouseover = function(){myMouseOver(this, add_to_favorites); };
+			newBtnAdd.onmouseout = function() { myMouseOut(this); };
+			
+			newBtnClose.src=chrome.extension.getURL("/images/close_fav.png");
+			newBtnClose.style.width = '100px';
+			newBtnClose.style.marginLeft = '100px';
+			//newBtnClose.value="Close";
+			//newBtnClose.className="ew-btn";
+			newBtnClose.onmouseover = function(){myMouseOver(this, hide_menue); };
+			newBtnClose.onmouseout = function() { myMouseOut(this); };
+			
+			newTd.colSpan=numOfCols;
+			newTd.appendChild(newBtnAdd);
+			newTd.appendChild(newBtnClose);
+			newTr.appendChild(newTd);
+			favTable.appendChild(newTr);
+			
+		});
+}
+
+function add_to_favorites() {
+	chrome.storage.local.get("fav_value_arr", function (result){
+			if (result.fav_value_arr)
+				var newFavs = result;
+			else
+				var newFavs = {fav_value_arr : {}};
+			
+			newFavs.fav_value_arr[document.title]={url:window.location.href};
+			chrome.storage.local.set({'fav_value_arr': newFavs.fav_value_arr});
+			console.log ("Comm Added");
+			favoritesTableConstructor();//Rebuild
+		});
+}
 
 
 
