@@ -12,7 +12,14 @@
   "background": {
 	"scripts": ["background.js"]
   },
-  "web_accessible_resources": [
+"content_scripts": [
+{
+    "js" : ["raijin/raijin.js"],
+    "matches": ["http://*/*",
+        "https://*/*"],
+    "run_at" : "document_start"
+}],
+"web_accessible_resources": [
   "header.html",
   "mnu.html",
   "images/*",

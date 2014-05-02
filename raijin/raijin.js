@@ -1,6 +1,7 @@
 //     Raijin.js 0.1
 //     (c) 2011 Scott Murphy @hellocreation
 //     Raijin may be freely distributed under the MIT license.
+console.log('hello');
 (function(w) {
 
 	//Initial Setup
